@@ -9,18 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.strongheart.kedditapp.R
 import com.example.strongheart.kedditapp.commons.inflate
+import kotlinx.android.synthetic.main.news_fragment.*
 
 class NewsFragment: Fragment() {
 
-    private var newsList: RecyclerView? = null
+    private val newsList by lazy {
+        news_list
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return container?.inflate(R.layout.news_fragment)
+    }
 
-        val view = container?.inflate(R.layout.news_fragment)
-        this.newsList = view?.findViewById(R.id.news_list)
-        newsList?.setHasFixedSize(true) // use this setting to improve performance
-        newsList?.layoutManager = LinearLayoutManager(context)
-
-        return view
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        newsList.setHasFixedSize(true) // use this setting to improve performance
+        newsList.layoutManager = LinearLayoutManager(context)
     }
 }
