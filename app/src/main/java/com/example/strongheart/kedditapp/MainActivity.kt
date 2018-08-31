@@ -25,15 +25,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
-        val ft = supportFragmentManager.beginTransaction();
+        val ft = supportFragmentManager.beginTransaction()
         if (cleanStack) {
-            clearBackStack();
+            clearBackStack()
         }
         ft.setCustomAnimations(
-                R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit);
-        ft.replace(R.id.activity_base_content, f);
-        ft.addToBackStack(null);
-        ft.commit();
+                R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit)
+        ft.replace(R.id.activity_base_content, f)
+        ft.addToBackStack(null)
+        ft.commit()
     }
 
     fun clearBackStack() {
