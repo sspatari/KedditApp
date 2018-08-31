@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.strongheart.kedditapp.R
-import com.example.strongheart.kedditapp.commons.inflate
+import com.example.strongheart.kedditapp.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
 
 class NewsFragment: Fragment() {

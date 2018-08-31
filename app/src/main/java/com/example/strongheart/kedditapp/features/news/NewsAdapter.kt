@@ -9,19 +9,20 @@ import com.example.strongheart.kedditapp.commons.adapter.ViewTypeDelegateAdapter
 
 class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: ArrayList<ViewType>
-    private var delegateAdapter = SparseArrayCompat<ViewTypeDelegateAdapter>()
+    private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
     private val loadingItem = object : ViewType {
         override fun getViewType() = AdapterConstants.LOADING
     }
 
     init {
-        this.delegateAdapter.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
+        this.delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter())
         this.items = ArrayList()
         this.items.add(loadingItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return this.delegateAdapter.get(viewType)!!.onCreateViewHolder(parent)
+        return this.delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +30,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        this.delegateAdapter.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position])
+        this.delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position])
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.example.strongheart.kedditapp.R
 import com.example.strongheart.kedditapp.commons.adapter.ViewType
 import com.example.strongheart.kedditapp.commons.adapter.ViewTypeDelegateAdapter
-import com.example.strongheart.kedditapp.commons.inflate
+import com.example.strongheart.kedditapp.commons.extensions.inflate
 
 class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
     override fun onCreateViewHolder(parent: ViewGroup) = TurnsViewHolder(parent)
