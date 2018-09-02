@@ -1,5 +1,6 @@
 package com.example.strongheart.kedditapp.commons.extensions
 
+import android.net.Uri
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,11 @@ import com.squareup.picasso.Picasso
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
+
 fun ImageView.loadImg(imageUrl: String) {
+    Picasso.with(context).setLoggingEnabled(true)
     if(TextUtils.isEmpty(imageUrl)) {
-        Picasso.with(context).load(R.mipmap.ic_launcher).into(this)
+        this.setImageResource(R.mipmap.ic_launcher)
     } else {
         Picasso.with(context).load(imageUrl).into(this)
     }
