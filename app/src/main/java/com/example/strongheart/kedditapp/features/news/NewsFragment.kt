@@ -2,18 +2,18 @@ package com.example.strongheart.kedditapp.features.news
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.strongheart.kedditapp.R
+import com.example.strongheart.kedditapp.commons.RxBaseFragment
 import com.example.strongheart.kedditapp.commons.extensions.inflate
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.news_fragment.*
 
-class NewsFragment: Fragment() {
+class NewsFragment: RxBaseFragment() {
 
     private val newsManager by lazy { NewsManager() }
 
@@ -35,7 +35,7 @@ class NewsFragment: Fragment() {
     }
 
     private fun requestNews() {
-        val subscription = newsManager.getNews()
+        val disposable = newsManager.getNews()
                 .subscribeOn(Schedulers.io()) // executes requests on another thread
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -46,6 +46,7 @@ class NewsFragment: Fragment() {
                             Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
                         }
                 )
+        disposables.add(disposable)
     }
 
     private fun initAdapter() {
