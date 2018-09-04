@@ -38,6 +38,7 @@ class NewsFragment: Fragment() {
     private fun requestNews() {
         val subscription = newsManager.getNews()
                 .subscribeOn(Schedulers.io()) // executes requests on another thread
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { retrivedNews ->
                             (news_list.adapter as NewsAdapter).addNews(retrivedNews)
