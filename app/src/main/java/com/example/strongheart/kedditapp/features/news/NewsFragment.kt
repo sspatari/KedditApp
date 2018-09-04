@@ -1,6 +1,7 @@
 package com.example.strongheart.kedditapp.features.news
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -10,8 +11,12 @@ import com.example.strongheart.kedditapp.R
 import com.example.strongheart.kedditapp.commons.RedditNewsItem
 import com.example.strongheart.kedditapp.commons.extensions.inflate
 import kotlinx.android.synthetic.main.news_fragment.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class NewsFragment: Fragment() {
+
+    private val newsManager by lazy { NewsManager() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
@@ -26,20 +31,21 @@ class NewsFragment: Fragment() {
         initAdapter()
 
         if(savedInstanceState == null) {
-            val news = mutableListOf<RedditNewsItem>()
-            for (i in 1..10) {
-                news.add(RedditNewsItem(
-                        "author$i",
-                        "Title $i",
-                        i, // number of comments
-                        1457207701L - i * 200, // time
-                        "https://picsum.photos/200/200?image=$i", // image url
-                        "url"
-                ))
-            }
-
-            (news_list.adapter as NewsAdapter).addNews(news)
+            requestNews()
         }
+    }
+
+    private fun requestNews() {
+        val subscription = newsManager.getNews()
+                .subscribeOn(Schedulers.io()) // executes requests on another thread
+                .subscribe(
+                        { retrivedNews ->
+                            (news_list.adapter as NewsAdapter).addNews(retrivedNews)
+                        },
+                        { e ->
+                            Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                        }
+                )
     }
 
     private fun initAdapter() {
