@@ -8,11 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.strongheart.kedditapp.R
-import com.example.strongheart.kedditapp.commons.RedditNewsItem
 import com.example.strongheart.kedditapp.commons.extensions.inflate
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.news_fragment.*
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 class NewsFragment: Fragment() {
 

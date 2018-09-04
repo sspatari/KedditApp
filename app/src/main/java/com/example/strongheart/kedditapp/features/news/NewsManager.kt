@@ -1,7 +1,7 @@
 package com.example.strongheart.kedditapp.features.news
 
 import com.example.strongheart.kedditapp.commons.RedditNewsItem
-import rx.Observable
+import io.reactivex.Observable
 
 class NewsManager {
 
