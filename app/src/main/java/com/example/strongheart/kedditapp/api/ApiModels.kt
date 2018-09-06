@@ -8,7 +8,9 @@ class RedditDataResponse(
         val before: String?
 )
 
-class RedditChildrenResponse(
+class RedditChildrenResponse(val data: RedditNewsDataResponse)
+
+class RedditNewsDataResponse(
         val author: String,
         val title: String,
         val num_comments: Int,
