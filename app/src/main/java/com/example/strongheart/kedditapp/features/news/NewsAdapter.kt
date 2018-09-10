@@ -2,6 +2,7 @@ package com.example.strongheart.kedditapp.features.news
 
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import com.example.strongheart.kedditapp.commons.RedditNewsItem
 import com.example.strongheart.kedditapp.commons.adapter.AdapterConstants
@@ -42,16 +43,16 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         //first remove loading and notify
         val initPosition = items.lastIndex
         items.addAll(initPosition, news)
-        notifyItemRangeInserted(initPosition, initPosition + news.size)
+        notifyItemRangeInserted(initPosition, news.size)
     }
 
     fun clearAndAddNews(news: List<RedditNewsItem>) {
+        notifyItemRangeRemoved(0, itemCount)
         items.clear()
-        notifyItemRangeRemoved(0, getLastPosition())
 
         items.addAll(news)
         items.add(loadingItem)
-        notifyItemRangeChanged(0, items.size)
+        notifyItemRangeInserted(0, items.size) //news plus loading bar
     }
 
     fun getNews(): List<RedditNewsItem> {
